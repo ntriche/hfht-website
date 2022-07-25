@@ -33,9 +33,6 @@
             "styles": [
               "src/styles.scss"
             ],
-            "allowedCommonJsDependencies": [
-              "tumblr.js"
-           ],
             "scripts": []
           },
           "configurations": {
@@ -109,5 +106,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
