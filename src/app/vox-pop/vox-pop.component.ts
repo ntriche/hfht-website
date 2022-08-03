@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { createClient, TumblrClient } from 'tumblr.js'
 import { LoggerService } from '../services/logger.service';
 
 @Component({
