@@ -8,11 +8,11 @@ import { Observable } from "rxjs";
   selector: "app-vox-pop",
   // templateUrl: "./vox-pop.component.html",
   template: `
-  <div style="display: flex; flex-direction: column; align-items: center">
-    <p>write your message bro</p>
-    <textarea #submissionArea></textarea>
-    <button (click)="submit(submissionArea.value)">submit</button>
-  </div>`,
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <p>write your message bro</p>
+      <textarea #submissionArea></textarea>
+      <button (click)="submit(submissionArea.value)">submit</button>
+    </div>`,
   styleUrls: ["./vox-pop.component.scss"]
 })
 export class VoxPopComponent implements OnInit {
