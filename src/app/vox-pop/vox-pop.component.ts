@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { LoggerService } from "../services/logger.service";
-import { HttpClient } from "@angular/common/http";
-import { environment } from "../../environments/environment";
-import { Observable } from "rxjs";
+import { lastValueFrom } from "rxjs";
+import { VoxPopService, Post } from "./vox-pop.service";
 
 @Component({
   selector: "app-vox-pop",
@@ -17,36 +15,23 @@ import { Observable } from "rxjs";
 })
 export class VoxPopComponent implements OnInit {
   title = "Vox Pop";
-  userIP: string = '';
-  userAgent: string = '';
-  getRequest = this.http.get(environment.baseUrl + "/vox-pop", {responseType: "text"})
 
-  constructor(
-    private log: LoggerService, 
-    private http: HttpClient,
-    ){
+  constructor(private voxPopService: VoxPopService) {
   }
 
-  ngOnInit(): void {
-    this.getUserIP().subscribe(response => {
-        this.userIP = response;
-    })
-    this.userAgent = window.navigator.userAgent;
-  }
+  ngOnInit(): void {}
 
-  getUserIP(): Observable<string> {
-    return this.http.get("https://api.ipify.org", {responseType: "text"});
-  }
+  async submit(submissionText: string) {
+    let userIP = await lastValueFrom(this.voxPopService.getUserIP());
 
-  submit(submissionText: string) {
     let dateTime = new Date();
-    const body = {
-      userIP: this.userIP,
-      userAgent: this.userAgent,
+    const post: Post = {
+      userIP: userIP,
       timestamp: dateTime,
       submission: submissionText,
     }
-    console.log('msg received: ', JSON.stringify(body));
-    this.http.post(environment.baseUrl + "/vox-pop", JSON.stringify(body), {responseType: "text"}).subscribe();
+
+    console.log('Submitting post with this content:', post);
+    this.voxPopService.sendSubmission(post).subscribe(res => console.log('Message from server:', res));
   }
 }
