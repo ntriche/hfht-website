@@ -7,8 +7,12 @@ import { Component } from '@angular/core';
     <h1>wassup mellos</h1>
     <div>
       <ul>
-        <li><a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">goto home</a></li>
-        <li><a routerLink="/vox-pop" routerLinkActive="active" ariaCurrentWhenActive="page">goto vox pop</a>
+        <li>
+          <a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">goto home</a>
+        </li>
+        <li>
+          <a routerLink="/vox-pop" routerLinkActive="active" ariaCurrentWhenActive="page">goto vox pop</a>
+        </li>
       </ul>
     </div>
     <router-outlet></router-outlet>
