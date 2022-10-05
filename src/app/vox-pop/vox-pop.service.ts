@@ -15,14 +15,14 @@ export class VoxPopService {
 
   constructor(private httpClient: HttpClient) { }
 
-  sendSubmission(post: Post): Observable<string> {
+  public sendSubmission(post: Post): Observable<string> {
     return this.httpClient.post(environment.baseUrl + "/vox-pop", JSON.stringify(post), {responseType: 'text', headers: this.httpHeaders})
       .pipe(
         catchError(this.errorHandler)
       )
   }
 
-  getUserIP(): Observable<string> {
+  public getUserIP(): Observable<string> {
     return this.httpClient.get("https://api.ipify.org", {responseType: 'text'})
       .pipe(
         retry(3),
