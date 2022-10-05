@@ -8,10 +8,13 @@ import { Component } from '@angular/core';
     <div>
       <ul>
         <li>
-          <a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">goto home</a>
+          <a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">home</a>
         </li>
         <li>
-          <a routerLink="/vox-pop" routerLinkActive="active" ariaCurrentWhenActive="page">goto vox pop</a>
+          <a routerLink="/vox-pop" routerLinkActive="active" ariaCurrentWhenActive="page">vox pop</a>
+        </li>
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="active" ariaCurrentWhenActive="page">dashboard</a>
         </li>
       </ul>
     </div>
