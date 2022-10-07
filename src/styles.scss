@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+$--grey: 34, 34, 34;
+$--white: 255, 255, 255;
+$--black: 0, 0, 0;
+$--link-blue: 0, 184, 255;
+
+.palette {
+    color: RGB($--white);
+    width: 100%;
+    min-height: 100vh; 
+    background: RGB($--black); 
+}
