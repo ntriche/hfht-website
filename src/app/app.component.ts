@@ -3,20 +3,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template:`
-  <div style="display: flex; align-items: center; flex-direction: column; margin-top: 20vh">
-    <h1>wassup mellos</h1>
-    <div>
-      <ul>
-        <li>
-          <a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">home</a>
-        </li>
-        <li>
-          <a routerLink="/vox-pop" routerLinkActive="active" ariaCurrentWhenActive="page">vox pop</a>
-        </li>
-        <li>
-          <a routerLink="/dashboard" routerLinkActive="active" ariaCurrentWhenActive="page">dashboard</a>
-        </li>
-      </ul>
+  <div>
+    <div class="header">
+      <a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page" class="link">Home</a>
+      <a routerLink="/vox-pop" routerLinkActive="active" ariaCurrentWhenActive="page" class="link">Vox Pop</a>
+      <a routerLink="/dashboard" routerLinkActive="active" ariaCurrentWhenActive="page" class="link">Dashboard</a>
     </div>
     <router-outlet></router-outlet>
   </div>`,

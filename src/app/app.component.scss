@@ -1,0 +1,19 @@
+@import '../styles.scss';
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.link {
+    text-decoration: none;
+    color: RGB($--link-blue);
+    &:hover {
+        text-decoration: underline;
+    }
+    font-size: 24px;
+    margin: 5px 20px 5px 20px;
+}
