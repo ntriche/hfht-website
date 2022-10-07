@@ -13,7 +13,7 @@ export interface Post {
 export class VoxPopService {
   httpHeaders = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   public sendSubmission(post: Post): Observable<string> {
     return this.httpClient.post(environment.baseUrl + "/vox-pop", JSON.stringify(post), {responseType: 'text', headers: this.httpHeaders})
