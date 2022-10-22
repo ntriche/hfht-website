@@ -1,30 +1,106 @@
 <div class="main">
-    <h1>Welcome to the dash</h1>
     <div class="body">
-        <div class="card-column">
-            <div *ngFor="let post of posts" class="card">
-                <div class="card-content">
-                    <span>Post info: {{post.pop.UUID}}</span>
-                    <br>
-                    <span>{{post.pop.submission}}</span>
+        <div class="rejects">
+            <h1 class="card-column-header">Rejected</h1>
+            <div class="card-column">
+                <div *ngFor="let post of rejectedPosts; index as i" class="card">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
+                            <div class="button-container">
+                                <!-- approve -->
+                                <button class="button" (click)="handlePost(post, i, 2)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                                        <polyline points="4 11.5 10 17.5 21 6.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                    </svg>
+                                </button>
+                                <!-- super approve -->
+                                <button class="button" (click)="handlePost(post, i, 3)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                                        <polyline points="19 10 12 3 5 10" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                        <line x1="12" y1="3" x2="12" y2="22" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <span>{{post.pop.submission}}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card-column">
-            <div *ngFor="let post of posts" class="card">
-                <div class="card-content">
-                    <span>Post info: {{post.pop.UUID}}</span>
-                    <br>
-                    <span>{{post.pop.submission}}</span>
+        <div class="divider"></div>
+        <div class="unmoderated">
+            <h1 class="card-column-header">Unmoderated</h1>
+            <div class="card-column">
+                <div *ngFor="let post of unmoderatedPosts; index as j" class="card">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
+                            <div class="button-container">
+                                <!-- reject -->
+                                <button class="button" (click)="handlePost(post, j, 1)"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24"> 
+                                        <polyline points="3 7 5 7 21 7" fill="none" stroke="#000"/>
+                                        <path d="M18.5,7l-1,14H6.5L5.5,7M8,7l.5-3.5h7L16,7" fill="none" stroke="#000"/>
+                                        <line x1="13.5" y1="16.5" x2="13.5" y2="11.5" fill="none" stroke="#000"/>
+                                        <line x1="10.5" y1="16.5" x2="10.5" y2="11.5" fill="none" stroke="#000"/>
+                                    </svg>
+                                </button>
+                                <!-- approve -->
+                                <button class="button" (click)="handlePost(post, j, 2)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                                        <polyline points="4 11.5 10 17.5 21 6.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                    </svg>
+                                </button>
+                                <!-- super approve -->
+                                <button class="button" (click)="handlePost(post, j, 3)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                                        <polyline points="19 10 12 3 5 10" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                        <line x1="12" y1="3" x2="12" y2="22" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <span>{{post.pop.submission}}</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="card-column">
-            <div *ngFor="let post of posts" class="card">
-                <div class="card-content">
-                    <span>Post info: {{post.pop.UUID}}</span>
-                    <br>
-                    <span>{{post.pop.submission}}</span>
+        <div class="divider"></div>
+        <div class="approved">
+            <h1 class="card-column-header">Approved</h1>
+            <div class="card-column">
+                <div *ngFor="let post of approvedPosts; index as k" class="card">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
+                            <div class="button-container">
+                                <!-- reject -->
+                                <button class="button" (click)="handlePost(post, k, 1)"> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24"> 
+                                        <polyline points="3 7 5 7 21 7" fill="none" stroke="#000"/>
+                                        <path d="M18.5,7l-1,14H6.5L5.5,7M8,7l.5-3.5h7L16,7" fill="none" stroke="#000"/>
+                                        <line x1="13.5" y1="16.5" x2="13.5" y2="11.5" fill="none" stroke="#000"/>
+                                        <line x1="10.5" y1="16.5" x2="10.5" y2="11.5" fill="none" stroke="#000"/>
+                                    </svg>
+                                </button>
+                                <!-- approve -->
+                                <button class="button" (click)="handlePost(post, k, 2)" *ngIf="post.status !== 2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                                        <polyline points="4 11.5 10 17.5 21 6.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                    </svg>
+                                </button>
+                                <!-- super approve -->
+                                <button class="button" (click)="handlePost(post, k, 3)" *ngIf="post.status !== 3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                                        <polyline points="19 10 12 3 5 10" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                        <line x1="12" y1="3" x2="12" y2="22" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <span>{{post.pop.submission}}</span>
+                    </div>
                 </div>
             </div>
         </div>
