@@ -25,13 +25,7 @@
     min-width: 540px;
 }
 
-.card-header {
-    display: flex;
-    justify-content: space-between;
-}
-
-.card {
-    min-height: 80px;
+.card-container {
     /* top | right | bottom | left */
     //padding: 5px 20px 5px 20px;
     margin-bottom: 20px;
@@ -39,14 +33,30 @@
     background-color: RGB($--grey);
 }
 
+.card-body {
+    padding: 5px 5px 0px 10px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
 .card-content {
-    padding: 5px 5px 5px 10px;
+    margin-bottom: 5px;
+}
+
+.card-footer {
+    padding-top: 5px;
+    text-align: right;
+    border-top: 1px solid RGB($--white, .13);
 }
 
 .divider {
     border: 2px solid RGB($--grey);
     border-left: 0;
-    margin-top: 50px;
+    margin-top: 56px;
+    margin-bottom: 24px;
     border-radius: 3px;
 }
 
@@ -68,6 +78,7 @@
 
 .button line,
 .button polyline,
+.button polygon,
 .button path {
     stroke: RGB($--icon-grey);
 }

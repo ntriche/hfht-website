@@ -3,8 +3,8 @@
         <div class="rejects">
             <h1 class="card-column-header">Rejected</h1>
             <div class="card-column">
-                <div *ngFor="let post of rejectedPosts; index as i" class="card">
-                    <div class="card-content">
+                <div *ngFor="let post of rejectedPosts; index as i" class="card-container">
+                    <div class="card-body">
                         <div class="card-header">
                             <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
                             <div class="button-container">
@@ -23,7 +23,15 @@
                                 </button>
                             </div>
                         </div>
-                        <span>{{post.pop.submission}}</span>
+                        <div class="card-content">{{post.pop.submission}}</div>
+                        <div class="card-footer">
+                            <button class="button" (click)="editPost(post)">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                                    <polygon points="3 21 4 16.5 17.5 3 18.5 3 21 5.5 21 6.5 7.5 20 3 21" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                    <line x1="15.5" y1="4.5" x2="19.5" y2="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -32,8 +40,8 @@
         <div class="unmoderated">
             <h1 class="card-column-header">Unmoderated</h1>
             <div class="card-column">
-                <div *ngFor="let post of unmoderatedPosts; index as j" class="card">
-                    <div class="card-content">
+                <div *ngFor="let post of unmoderatedPosts; index as j" class="card-container">
+                    <div class="card-body">
                         <div class="card-header">
                             <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
                             <div class="button-container">
@@ -61,7 +69,15 @@
                                 </button>
                             </div>
                         </div>
-                        <span>{{post.pop.submission}}</span>
+                        <div class="card-content">{{post.pop.submission}}</div>
+                        <div class="card-footer">
+                            <button class="button" (click)="editPost(post)">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                                    <polygon points="3 21 4 16.5 17.5 3 18.5 3 21 5.5 21 6.5 7.5 20 3 21" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                    <line x1="15.5" y1="4.5" x2="19.5" y2="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,8 +86,8 @@
         <div class="approved">
             <h1 class="card-column-header">Approved</h1>
             <div class="card-column">
-                <div *ngFor="let post of approvedPosts; index as k" class="card">
-                    <div class="card-content">
+                <div *ngFor="let post of approvedPosts; index as k" class="card-container">
+                    <div class="card-body">
                         <div class="card-header">
                             <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
                             <div class="button-container">
@@ -99,7 +115,15 @@
                                 </button>
                             </div>
                         </div>
-                        <span>{{post.pop.submission}}</span>
+                        <div class="card-content">{{post.pop.submission}}</div>
+                        <div class="card-footer">
+                            <button class="button" (click)="editPost(post)">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
+                                    <polygon points="3 21 4 16.5 17.5 3 18.5 3 21 5.5 21 6.5 7.5 20 3 21" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                    <line x1="15.5" y1="4.5" x2="19.5" y2="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

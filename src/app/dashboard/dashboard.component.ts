@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { voxPop } from '../vox-pop/interface/vox-pop.interface';
 import { DashboardService } from './dashboard.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DashboardEditPopupComponent } from '../dashboard-edit-popup/dashboard-edit-popup.component';
 
 enum postStatus {
   NotReviewed = 0,
@@ -9,7 +10,7 @@ enum postStatus {
   Approved,
   SuperApproved,
 }
-interface reviewPost {
+export interface reviewPost {
   status: postStatus,
   pop: voxPop
 }
@@ -24,7 +25,8 @@ export class DashboardComponent implements OnInit {
   approvedPosts: reviewPost[] = [];
   rejectedPosts: reviewPost[] = [];
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private dashboardService: DashboardService, 
+              private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.dashboardService.getPosts().subscribe({
@@ -37,10 +39,17 @@ export class DashboardComponent implements OnInit {
           }
           this.unmoderatedPosts.push(post);
         }
-        console.log(this.unmoderatedPosts);
       },
       error: (e) => {throw e},
     });
+  }
+
+  editPost(post: reviewPost) {
+    let dialogRef = this.dialog.open(DashboardEditPopupComponent, {
+      data: post,
+      height: '400px',
+      width: '600px',
+    }); 
   }
 
   handlePost(post: reviewPost, index: number, newStatus: postStatus) {
