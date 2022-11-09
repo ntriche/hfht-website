@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { voxPop } from '../vox-pop/interface/vox-pop.interface';
 import { DashboardService } from './dashboard.service';
 
@@ -22,7 +23,6 @@ export class DashboardComponent implements OnInit {
   unmoderatedPosts: reviewPost[] = [];
   approvedPosts: reviewPost[] = [];
   rejectedPosts: reviewPost[] = [];
-
 
   constructor(private dashboardService: DashboardService) {}
 
