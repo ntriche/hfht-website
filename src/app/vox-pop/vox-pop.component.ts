@@ -34,7 +34,7 @@ export class VoxPopComponent implements OnInit {
       submission: submissionText,
     }
     
-    // this.voxPopService.sendSubmission(post).subscribe(res => console.log('Message from server:', res));
+    this.voxPopService.sendSubmission(post).subscribe(res => console.log('Message from server:', res));
     this.voxPopFormGroup.controls.submissionArea.reset();
     return true;
   }
