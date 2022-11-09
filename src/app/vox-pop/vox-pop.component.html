@@ -1,6 +1,8 @@
-<div [formGroup]="voxPopFormGroup" style="display: flex; flex-direction: column; align-items: center">
-    <p>Write your submission here:</p>
-    <input name="submissionArea" formControlName="submissionArea" #submissionArea  
-           required minlength="2" class="submission-box">
-    <button (click)="submit(submissionArea.value)">submit</button>
+<div style="display: flex; justify-content: center;">
+    <div [formGroup]="voxPopFormGroup" class="vox-pop-card">
+        <h1 style="font-size: 20px">Write your submission</h1>
+        <input name="submissionArea" formControlName="submissionArea" #submissionArea  
+               required minlength="2" placeholder="write me bro" class="submission-box">
+        <button (click)="submit(submissionArea.value)">submit</button>
+    </div>
 </div>
