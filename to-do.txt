@@ -1,1 +1,6 @@
-on the dashboard, clicking on the IP of a post will filter all posts on the dashboard (without changing their position in the rejected, approved, etc. columns) to be only that IP address
+    On the dashboard, clicking on the IP of a post will filter all posts on the dashboard (without changing their position in the rejected, approved, etc. columns) 
+to be only that IP address.
+
+    Configure Angular's theme system rather, or at least research it and see if it's worth using. 
+
+    Visual github/vs code/whatever change detection on dashboard page to make edits more easily visible.
