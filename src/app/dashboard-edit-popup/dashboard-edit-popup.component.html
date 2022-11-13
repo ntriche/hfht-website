@@ -1,3 +1,10 @@
-<div>Original text: {{post.pop.submission}}</div>
-<textarea [textContent]="post.pop.submission"></textarea>
-<button (click)="close()"></button>
+<div class="popup">
+    <h1 mat-dialog-title>Edit Submission</h1>
+    <div mat-dialog-content>
+        <div>Original text: {{data.pop.submission}}</div>
+    <textarea [textContent]="data.pop.submission"></textarea>
+    </div>
+        <div mat-dialog-actions>
+        <button (click)="close()"></button>
+    </div>
+</div>

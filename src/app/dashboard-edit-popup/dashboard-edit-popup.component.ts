@@ -8,11 +8,10 @@ import { reviewPost } from '../dashboard/dashboard.component';
   styleUrls: ['./dashboard-edit-popup.component.scss']
 })
 export class DashboardEditPopupComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<string>, 
-              @Inject(MAT_DIALOG_DATA) public post: reviewPost) {}
+  constructor(public dialogRef: MatDialogRef<reviewPost>, 
+              @Inject(MAT_DIALOG_DATA) public data: reviewPost) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   close() {
     this.dialogRef.close('word');

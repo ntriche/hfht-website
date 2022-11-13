@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { voxPop } from '../vox-pop/interface/vox-pop.interface';
 import { DashboardService } from './dashboard.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { DashboardEditPopupComponent } from '../dashboard-edit-popup/dashboard-edit-popup.component';
 
 enum postStatus {
@@ -46,9 +46,7 @@ export class DashboardComponent implements OnInit {
 
   editPost(post: reviewPost) {
     let dialogRef = this.dialog.open(DashboardEditPopupComponent, {
-      data: post,
-      height: '400px',
-      width: '600px',
+      data: post
     }); 
   }
 
