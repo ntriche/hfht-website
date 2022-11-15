@@ -4,8 +4,7 @@ import { reviewPost } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-dashboard-edit-popup',
-  templateUrl: './dashboard-edit-popup.component.html',
-  styleUrls: ['./dashboard-edit-popup.component.scss']
+  templateUrl: './dashboard-edit-popup.component.html'
 })
 export class DashboardEditPopupComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<reviewPost>, 
@@ -15,5 +14,9 @@ export class DashboardEditPopupComponent implements OnInit {
 
   close() {
     this.dialogRef.close('word');
+  }
+
+  confirm() {
+    this.dialogRef.close();
   }
 }

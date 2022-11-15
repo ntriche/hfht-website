@@ -9,13 +9,13 @@
                             <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
                             <div class="button-container">
                                 <!-- approve -->
-                                <button class="button" (click)="handlePost(post, i, 2)">
+                                <button (click)="handlePost(post, i, 2)">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                         <polyline points="4 11.5 10 17.5 21 6.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                     </svg>
                                 </button>
                                 <!-- super approve -->
-                                <button class="button" (click)="handlePost(post, i, 3)">
+                                <button (click)="handlePost(post, i, 3)">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                         <polyline points="19 10 12 3 5 10" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                         <line x1="12" y1="3" x2="12" y2="22" fill="none" stroke="#000" stroke-miterlimit="10"/>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="card-content">{{post.pop.submission}}</div>
                         <div class="card-footer">
-                            <button class="button" (click)="editPost(post)">
+                            <button (click)="editPost(post)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                     <polygon points="3 21 4 16.5 17.5 3 18.5 3 21 5.5 21 6.5 7.5 20 3 21" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                     <line x1="15.5" y1="4.5" x2="19.5" y2="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
@@ -46,7 +46,7 @@
                             <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
                             <div class="button-container">
                                 <!-- reject -->
-                                <button class="button" (click)="handlePost(post, j, 1)"> 
+                                <button (click)="handlePost(post, j, 1)"> 
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24"> 
                                         <polyline points="3 7 5 7 21 7" fill="none" stroke="#000"/>
                                         <path d="M18.5,7l-1,14H6.5L5.5,7M8,7l.5-3.5h7L16,7" fill="none" stroke="#000"/>
@@ -55,13 +55,13 @@
                                     </svg>
                                 </button>
                                 <!-- approve -->
-                                <button class="button" (click)="handlePost(post, j, 2)">
+                                <button (click)="handlePost(post, j, 2)">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                         <polyline points="4 11.5 10 17.5 21 6.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                     </svg>
                                 </button>
                                 <!-- super approve -->
-                                <button class="button" (click)="handlePost(post, j, 3)">
+                                <button (click)="handlePost(post, j, 3)">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                         <polyline points="19 10 12 3 5 10" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                         <line x1="12" y1="3" x2="12" y2="22" fill="none" stroke="#000" stroke-miterlimit="10"/>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="card-content">{{post.pop.submission}}</div>
                         <div class="card-footer">
-                            <button class="button" (click)="editPost(post)">
+                            <button (click)="editPost(post)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                     <polygon points="3 21 4 16.5 17.5 3 18.5 3 21 5.5 21 6.5 7.5 20 3 21" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                     <line x1="15.5" y1="4.5" x2="19.5" y2="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
@@ -92,7 +92,7 @@
                             <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
                             <div class="button-container">
                                 <!-- reject -->
-                                <button class="button" (click)="handlePost(post, k, 1)"> 
+                                <button (click)="handlePost(post, k, 1)"> 
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24"> 
                                         <polyline points="3 7 5 7 21 7" fill="none" stroke="#000"/>
                                         <path d="M18.5,7l-1,14H6.5L5.5,7M8,7l.5-3.5h7L16,7" fill="none" stroke="#000"/>
@@ -101,13 +101,13 @@
                                     </svg>
                                 </button>
                                 <!-- approve -->
-                                <button class="button" (click)="handlePost(post, k, 2)" *ngIf="post.status !== 2">
+                                <button (click)="handlePost(post, k, 2)" *ngIf="post.status !== 2">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                         <polyline points="4 11.5 10 17.5 21 6.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                     </svg>
                                 </button>
                                 <!-- super approve -->
-                                <button class="button" (click)="handlePost(post, k, 3)" *ngIf="post.status !== 3">
+                                <button (click)="handlePost(post, k, 3)" *ngIf="post.status !== 3">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                         <polyline points="19 10 12 3 5 10" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                         <line x1="12" y1="3" x2="12" y2="22" fill="none" stroke="#000" stroke-miterlimit="10"/>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="card-content">{{post.pop.submission}}</div>
                         <div class="card-footer">
-                            <button class="button" (click)="editPost(post)">
+                            <button (click)="editPost(post)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                     <polygon points="3 21 4 16.5 17.5 3 18.5 3 21 5.5 21 6.5 7.5 20 3 21" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                     <line x1="15.5" y1="4.5" x2="19.5" y2="8.5" fill="none" stroke="#000" stroke-miterlimit="10"/>

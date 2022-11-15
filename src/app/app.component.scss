@@ -10,7 +10,7 @@
 
 .link {
     text-decoration: none;
-    color: RGB($--link-blue);
+    color: RGB($link-blue);
     &:hover {
         text-decoration: underline;
     }

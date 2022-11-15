@@ -29,7 +29,7 @@
     //padding: 5px 20px 5px 20px;
     margin-bottom: 20px;
     border-radius: 3px;
-    background-color: RGB($--grey);
+    background-color: RGB($grey);
 }
 
 .card-body {
@@ -49,11 +49,11 @@
 .card-footer {
     padding-top: 5px;
     text-align: right;
-    border-top: 1px solid RGB($--white, .13);
+    border-top: 1px solid RGB($white, .13);
 }
 
 .divider {
-    border: 2px solid RGB($--grey);
+    border: 2px solid RGB($grey);
     border-left: 0;
     margin-top: 56px;
     margin-bottom: 24px;
@@ -63,24 +63,6 @@
 .post-details {
     font-size: 16px;
     font-style: italic;
-}
-
-.button {
-    background-color: transparent;
-    height: 24px;
-    width: 24px;
-    border-style: none;
-    padding: 0;
-    &:hover {
-        cursor: pointer;
-    }
-}
-
-.button line,
-.button polyline,
-.button polygon,
-.button path {
-    stroke: RGB($--icon-grey);
 }
 
 .icon {

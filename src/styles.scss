@@ -1,39 +1,7 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
-$dark-primary-text: rgba(black, 0.87);
-$light-primary-text: white;
-
-$white-black-palette: (
-  50: #ffffff,
-  100: #e9e9e9,
-  200: #d9d9d9,
-  300: #c4c4c4,
-  400: #9d9d9d,
-  500: #7b7b7b,
-  600: #555555,
-  700: #434343,
-  800: #222222,
-  900: #000000,
-  contrast: (
-    50: $dark-primary-text,
-    100: $dark-primary-text,
-    200: $dark-primary-text,
-    300: $dark-primary-text,
-    400: $dark-primary-text,
-    500: $dark-primary-text,
-    600: $light-primary-text,
-    700: $light-primary-text,
-    800: $light-primary-text,
-    900: $light-primary-text,
-    A100: $dark-primary-text,
-    A200: $dark-primary-text,
-    A400: $dark-primary-text,
-    A700: $light-primary-text,
-  )
-);
-
-$hfht-website-primary: mat.define-palette($white-black-palette);
+$hfht-website-primary: mat.define-palette(mat.$grey-palette);
 $hfht-website-accent: mat.define-palette(mat.$amber-palette, 800, 700, 900);
 $hfht-website-warn: mat.define-palette(mat.$red-palette);
 
@@ -45,14 +13,12 @@ $hfht-website-theme: mat.define-dark-theme((
   )
 ));
 
-@include mat.core-theme($hfht-website-theme);
 @include mat.all-component-themes($hfht-website-theme);
 
-$--icon-grey: 166, 166, 166;
-$--grey: 34, 34, 34;
-$--white: 255, 255, 255;
-$--black: 0, 0, 0;
-$--link-blue: 0, 184, 255;
+$icon-grey: 166, 166, 166;
+$grey: 34, 34, 34;
+$white: 255, 255, 255;
+$link-blue: 0, 184, 255;
 
 html, body { 
   height: 100%; 
@@ -60,5 +26,30 @@ html, body {
 
 body {
   margin: 0; 
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: black;
+  color: white;
 }
+
+button {
+  background-color: transparent;
+  height: 24px;
+  width: 24px;
+  border-style: none;
+  padding: 0;
+  &:hover {
+      cursor: pointer;
+  }
+}
+
+line,
+polyline,
+polygon,
+path {
+  stroke: RGB($icon-grey);
+}
+
+:root mat-dialog-container {
+  background: RGB($grey);
+}
+
