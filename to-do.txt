@@ -1,6 +1,12 @@
-    On the dashboard, clicking on the IP of a post will filter all posts on the dashboard (without changing their position in the rejected, approved, etc. columns) 
-to be only that IP address.
-
     Configure Angular's theme system rather, or at least research it and see if it's worth using. 
 
     Visual github/vs code/whatever change detection on dashboard page to make edits more easily visible.
+
+-- Dashboard stuff
+    While the dashboard is currently open, a counter on the dashboard increases as new posts arrive at the server rather (as an alternative to just automatically inserting them). 
+A button will have to be added to call the dashboard endpoint on the server to return the new posts and insert them into the queue.
+
+    On the dashboard, clicking on the IP of a post will filter all posts on the dashboard (without changing their position in the rejected, approved, etc. columns) 
+to be only that IP address.
+
+    If a post was altered by the server, flag it with a certain color(s). 
