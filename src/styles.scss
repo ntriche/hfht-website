@@ -15,10 +15,9 @@ $hfht-website-theme: mat.define-dark-theme((
 
 @include mat.all-component-themes($hfht-website-theme);
 
+$link-blue: 0, 184, 255;
 $icon-grey: 166, 166, 166;
 $grey: 34, 34, 34;
-$white: 255, 255, 255;
-$link-blue: 0, 184, 255;
 
 html, body { 
   height: 100%; 
@@ -31,14 +30,20 @@ body {
   color: white;
 }
 
+textarea {
+  resize: none;
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
 button {
   background-color: transparent;
-  height: 24px;
-  width: 24px;
   border-style: none;
-  padding: 0;
+  color: white;
   &:hover {
-      cursor: pointer;
+    cursor: pointer;
   }
 }
 
@@ -46,10 +51,17 @@ line,
 polyline,
 polygon,
 path {
-  stroke: RGB($icon-grey);
+  stroke: white;
 }
 
 :root mat-dialog-container {
   background: RGB($grey);
+}
+
+:root snack-bar-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  color: black;
+  background-color: #ff6f00;
 }
 

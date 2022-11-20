@@ -3,6 +3,7 @@ import { voxPop } from '../vox-pop/interface/vox-pop.interface';
 import { DashboardService } from './dashboard.service';
 import { MatDialog} from '@angular/material/dialog';
 import { DashboardEditPopupComponent } from '../dashboard-edit-popup/dashboard-edit-popup.component';
+import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 
 enum postStatus {
   NotReviewed = 0,
@@ -12,7 +13,8 @@ enum postStatus {
 }
 export interface reviewPost {
   status: postStatus,
-  pop: voxPop
+  pop: voxPop,
+  edit: string,
 }
 
 @Component({
@@ -21,6 +23,9 @@ export interface reviewPost {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  isLoading: boolean = false;
+  gotSubmissions: boolean = false;
+
   unmoderatedPosts: reviewPost[] = [];
   approvedPosts: reviewPost[] = [];
   rejectedPosts: reviewPost[] = [];
@@ -28,26 +33,53 @@ export class DashboardComponent implements OnInit {
   constructor(private dashboardService: DashboardService, 
               private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    this.dashboardService.getPosts().subscribe({
-      next: v => {
-        let pops: voxPop[] = JSON.parse(v) as voxPop[];
-        for (let i = 0; i < pops.length; i++) {
-          const post: reviewPost = {
-            status: postStatus.NotReviewed,
-            pop: pops[i]
-          }
-          this.unmoderatedPosts.push(post);
+  async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+    try {
+      let res = await lastValueFrom(this.dashboardService.getPosts());
+      let pops: voxPop[] = JSON.parse(res) as voxPop[];
+      for (let i = 0; i < pops.length; i++) {
+        const post: reviewPost = {
+          status: postStatus.NotReviewed,
+          pop: pops[i],
+          edit: "",
         }
-      },
-      error: (e) => {throw e},
-    });
+        this.unmoderatedPosts.push(post);
+      }
+    } catch(err) {
+      throw err;
+    } finally {
+      if (this.unmoderatedPosts.length > 0) {
+        this.gotSubmissions = true;
+      }
+      this.isLoading = false;
+    }
+  }
+
+  // determines which post should be displayed on the dashboard and returns it
+  getPostSubmission(post: reviewPost): string {
+    // edit is filled out on the dashboard manually only
+    if (post.edit.length > 0) {
+      return post.edit;
+    }
+    // altered posts are altered server-side, to remove things like HTML tags which could modify how the post is displayed on tumblr
+    if (!!post.pop.alteredSubmission && post.pop.alteredSubmission.length > 0) {
+      return post.pop.alteredSubmission;
+    }
+    // just the plain old original, unmodified submission
+    return post.pop.submission;
   }
 
   editPost(post: reviewPost) {
     let dialogRef = this.dialog.open(DashboardEditPopupComponent, {
       data: post
-    }); 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!!result && result.length > 0) {
+        post.edit = result;
+      }
+    });
   }
 
   handlePost(post: reviewPost, index: number, newStatus: postStatus) {

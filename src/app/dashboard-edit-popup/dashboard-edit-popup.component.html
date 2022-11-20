@@ -9,11 +9,12 @@
         </button>
     </div>
     <div mat-dialog-content>
-        <div>Original text: {{data.pop.submission}}</div>
-    <textarea [textContent]="data.pop.submission"></textarea>
+        <div #originalText>Original: {{post.pop.submission}}</div>
+        <div #editText *ngIf="post.edit.length > 0">Edit:     {{post.edit}}</div>
+        <textarea #editSubmission [textContent]="post.pop.submission"></textarea>
     </div>
     <div mat-dialog-actions>
-        <button (click)="confirm()">
+        <button (click)="confirm(editSubmission.value)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                 <polyline points="4 11.5 10 17.5 21 6.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
             </svg>

@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 
 export interface Post {
   userIP: string,
-  timestamp: Date,
   submission: string,
 }
 

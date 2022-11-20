@@ -25,8 +25,6 @@
 }
 
 .card-container {
-    /* top | right | bottom | left */
-    //padding: 5px 20px 5px 20px;
     margin-bottom: 20px;
     border-radius: 3px;
     background-color: RGB($grey);
@@ -40,16 +38,18 @@
 .card-header {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 5px;
+    border-bottom: 1px solid RGB(255, 255, 255, .13);
 }
 
 .card-content {
-    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .card-footer {
     padding-top: 5px;
     text-align: right;
-    border-top: 1px solid RGB($white, .13);
 }
 
 .divider {
@@ -68,4 +68,10 @@
 .icon {
     width: 24px;
     height: 24px;
+}
+
+.dashboard-button {
+    height: 24px;
+    width: 24px;
+    padding: 0;
 }

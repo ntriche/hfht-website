@@ -1,8 +1,11 @@
 <div style="display: flex; justify-content: center;">
     <div [formGroup]="voxPopFormGroup" class="vox-pop-card">
         <h1 style="font-size: 20px">Write your submission</h1>
-        <input name="submissionArea" formControlName="submissionArea" #submissionArea  
-               required minlength="2" placeholder="write me bro" class="submission-box">
-        <button (click)="submit(submissionArea.value)">submit</button>
+        <div class="submission-divider">
+        </div>
+        <textarea name="submissionArea" formControlName="submissionArea" #submissionArea  
+               required minlength="2" placeholder="Write your sub here, bro. . ." class="submission-box">
+        </textarea>
+        <button class="submission-button" (click)="submit(submissionArea.value)">Submit</button>
     </div>
 </div>
