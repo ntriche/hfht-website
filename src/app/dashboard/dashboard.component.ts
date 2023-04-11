@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { voxPop } from '../vox-pop/interface/vox-pop.interface';
 import { DashboardService } from './dashboard.service';
 import { MatDialog} from '@angular/material/dialog';
-import { DashboardEditPopupComponent } from '../dashboard-edit-popup/dashboard-edit-popup.component';
 import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
+import { DashboardEditPopupComponent } from './popup/dashboard-edit-popup.component';
 
 enum postStatus {
   NotReviewed = 0,
@@ -30,8 +30,7 @@ export class DashboardComponent implements OnInit {
   approvedPosts: reviewPost[] = [];
   rejectedPosts: reviewPost[] = [];
 
-  constructor(private dashboardService: DashboardService, 
-              private dialog: MatDialog) {}
+  constructor(public dashboardService: DashboardService, private dialog: MatDialog) {}
 
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
@@ -54,20 +53,6 @@ export class DashboardComponent implements OnInit {
       }
       this.isLoading = false;
     }
-  }
-
-  // determines which post should be displayed on the dashboard and returns it
-  getPostSubmission(post: reviewPost): string {
-    // edit is filled out on the dashboard manually only
-    if (post.edit.length > 0) {
-      return post.edit;
-    }
-    // altered posts are altered server-side, to remove things like HTML tags which could modify how the post is displayed on tumblr
-    if (!!post.pop.alteredSubmission && post.pop.alteredSubmission.length > 0) {
-      return post.pop.alteredSubmission;
-    }
-    // just the plain old original, unmodified submission
-    return post.pop.submission;
   }
 
   editPost(post: reviewPost) {
