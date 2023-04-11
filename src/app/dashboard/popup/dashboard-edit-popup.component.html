@@ -9,9 +9,9 @@
         </button>
     </div>
     <div mat-dialog-content>
-        <div #originalText>Original: {{post.pop.submission}}</div>
-        <div #editText *ngIf="post.edit.length > 0">Edit:     {{post.edit}}</div>
-        <textarea #editSubmission [textContent]="post.pop.submission"></textarea>
+        <div #originalText>Original: {{post.pop.submissions[post.pop.submissions.length - 1]}}</div>
+        <div #editText *ngIf="post.edit.length > 0">Edit: {{post.edit}}</div>
+        <textarea #editSubmission [textContent]="dashboardService.getPostSubmission(post)"></textarea>
     </div>
     <div mat-dialog-actions>
         <button (click)="confirm(editSubmission.value)">
