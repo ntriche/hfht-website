@@ -23,15 +23,11 @@ export class VoxPopService {
 
   public getUserIP(): Observable<string> {
     return this.httpClient.get("https://api.ipify.org", {responseType: 'text'})
-      .pipe(
-        retry(3),
-        catchError(this.errorHandler)
-      );
   }
 
   private errorHandler(error: HttpErrorResponse) {
     if (error.status === 0) {
-      console.error('Error: ', error.error);
+      console.error(error.error);
     } else {
       console.error(`Server returned code ${error.status}, body was: `, error.error);
     }

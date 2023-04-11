@@ -1,8 +1,8 @@
 export interface voxPop {
     userIP: string;
-    timestamp: Date;
-    submission: string;
-    UUID: string;
-    alteredSubmission?: string;
-    postID?: string;
+	submissions: string[];
+	UUID: string;
+	postID?: string;
+	timestampAtSubmission: Date;
+	timestampAtPost?: Date;
 }

@@ -26,30 +26,43 @@ export class VoxPopComponent implements OnInit {
     });
   }
 
-  async submit(submissionText: string): Promise<boolean> {
+  async fetchUserIP(): Promise<string> {
+    let userIP = ''
+    try {
+      // lastValueFrom converts an observable into a promise
+      userIP = await lastValueFrom(this.voxPopService.getUserIP());
+    } catch {
+      console.error("Failed to fetch user IP");
+    }
+    return userIP;
+  }
+  
+  prevalidate(submissionText: string): boolean {
     if (submissionText.length < 1) {
       this.openSnackBar("Your submission is too short!");
       return false;
     }
-
     if (submissionText.length > 4096) {
       this.openSnackBar("Your submission is too long!");
       return false;
     }
+    return true;
+  }
 
-    // lastValueFrom converts an observable into a promise
-    let userIP = await lastValueFrom(this.voxPopService.getUserIP());
+  async submit(submissionText: string): Promise<void> {
+    if (!this.prevalidate(submissionText)) {
+      return;
+    }
+
     const post: Post = {
-      userIP: userIP,
+      userIP: await this.fetchUserIP(),
       submission: submissionText,
     }
-    
-    // this.voxPopService.sendSubmission(post).subscribe(res => console.log('Message from server:', res));
 
     let res = await lastValueFrom(this.voxPopService.sendSubmission(post));
     console.log(res);
 
     this.voxPopFormGroup.controls.submissionArea.reset();
-    return true;
+    return;
   }
 }

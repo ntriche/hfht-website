@@ -6,7 +6,7 @@
                 <div *ngFor="let post of rejectedPosts; index as i" class="card-container">
                     <div class="card-body">
                         <div class="card-header">
-                            <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
+                            <span class="post-details">{{dashboardService.getPostIP(post)}} | {{post.pop.UUID}}</span>
                             <div class="button-container">
                                 <!-- approve -->
                                 <button class="dashboard-button" (click)="handlePost(post, i, 2)">
@@ -23,7 +23,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-content">{{getPostSubmission(post)}}</div>
+                        <div class="card-content">{{dashboardService.getPostSubmission(post)}}</div>
                         <div class="card-footer">
                             <button class="dashboard-button" (click)="editPost(post)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
@@ -43,7 +43,7 @@
                 <div *ngFor="let post of unmoderatedPosts; index as j" class="card-container">
                     <div class="card-body">
                         <div class="card-header">
-                            <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
+                            <span class="post-details">{{dashboardService.getPostIP(post)}} | {{post.pop.UUID}}</span>
                             <div class="button-container">
                                 <!-- reject -->
                                 <button class="dashboard-button" (click)="handlePost(post, j, 1)"> 
@@ -69,7 +69,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-content">{{getPostSubmission(post)}}</div>
+                        <div class="card-content">{{dashboardService.getPostSubmission(post)}}</div>
                         <div class="card-footer">
                             <button class="dashboard-button" (click)="editPost(post)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
@@ -89,7 +89,7 @@
                 <div *ngFor="let post of approvedPosts; index as k" class="card-container">
                     <div class="card-body">
                         <div class="card-header">
-                            <span class="post-details">{{post.pop.userIP}} | {{post.pop.UUID}}</span>
+                            <span class="post-details">{{dashboardService.getPostIP(post)}} | {{post.pop.UUID}}</span>
                             <div class="button-container">
                                 <!-- reject -->
                                 <button class="dashboard-button" (click)="handlePost(post, k, 1)"> 
@@ -115,7 +115,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-content">{{getPostSubmission(post)}}</div>
+                        <div class="card-content">{{dashboardService.getPostSubmission(post)}}</div>
                         <div class="card-footer">
                             <button class="dashboard-button" (click)="editPost(post)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
