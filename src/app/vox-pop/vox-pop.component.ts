@@ -20,9 +20,9 @@ export class VoxPopComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openSnackBar(message: string): void {
+  openSnackBar(message: string, duration: number): void {
     this.snackBar.open(message, 'Okay', {
-      duration: 300000
+      duration: duration
     });
   }
 
@@ -38,12 +38,16 @@ export class VoxPopComponent implements OnInit {
   }
   
   prevalidate(submissionText: string): boolean {
-    if (submissionText.length < 1) {
-      this.openSnackBar("Your submission is too short!");
+    if (submissionText.length == 0) {
+      this.openSnackBar("Your submission can't be empty, bro!", 5000);
+      return false;
+    }
+    if (submissionText.length < 2) {
+      this.openSnackBar("Your submission is too short!", 5000);
       return false;
     }
     if (submissionText.length > 4096) {
-      this.openSnackBar("Your submission is too long!");
+      this.openSnackBar("Your submission is too long!", 5000);
       return false;
     }
     return true;
