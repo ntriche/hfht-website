@@ -1,0 +1,21 @@
+@import '../../../styles.scss';
+
+.submission-box {
+    font-size: 14px;
+    margin-bottom: 5px;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: white;
+}
+
+.edit-divider {
+    border: 1px solid white;
+    border-left: 0;
+    margin-top: 10px;
+    border-radius: 3px;
+}
+
+.edit-header {
+    font-size: 18px;
+}

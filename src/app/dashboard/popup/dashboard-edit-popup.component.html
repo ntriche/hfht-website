@@ -1,6 +1,6 @@
 <div style="background-color: inherit">
     <div style="display: flex; justify-content: space-between;">
-        <h1 mat-dialog-title>Edit Submission</h1>
+        <h1 class="edit-header">Modify Submission</h1>
         <button (click)="close()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                 <line x1="19" y1="5" x2="5" y2="19" fill="#fff" stroke="#000" stroke-miterlimit="10"/>
@@ -8,13 +8,26 @@
             </svg>
         </button>
     </div>
-    <div mat-dialog-content>
-        <div #originalText>Original: {{post.pop.submissions[post.pop.submissions.length - 1]}}</div>
-        <div #editText *ngIf="post.edit.length > 0">Edit: {{post.edit}}</div>
-        <textarea #editSubmission [textContent]="dashboardService.getPostSubmission(post)"></textarea>
+    <div class="edit-divider"></div>
+    <div mat-dialog-content style="width: 540px">
+        <div>
+            <h1 class="edit-header">Original Submission</h1>
+            <div class="card-content" #originalText>{{sub.submissions[0]}}</div>
+        </div>
+        <div class="edit-divider"></div>
+        <div *ngIf="!!getMostRecentEdit(sub)">
+            <h1 class="edit-header">Last Edit</h1>
+            <div class="card-content" #previousEdit>{{getMostRecentEdit(sub)}}</div>
+            <div class="edit-divider"></div>
+        </div>
+        <div>
+            <h1 class="edit-header">New Submission</h1>
+            <textarea class="submission-box" #newEdit placeholder="Edit goes here"></textarea>
+        </div>
     </div>
-    <div mat-dialog-actions>
-        <button (click)="confirm(editSubmission.value)">
+    <div style="display: flex; justify-content: space-between;">
+        <h1></h1>
+        <button (click)="confirm(newEdit.value)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                 <polyline points="4 11.5 10 17.5 21 6.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
             </svg>

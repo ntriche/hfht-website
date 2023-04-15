@@ -3,10 +3,10 @@
         <div class="rejects">
             <h1 class="card-column-header">Rejected</h1>
             <div class="card-column">
-                <div *ngFor="let post of rejectedPosts; index as i" class="card-container">
+                <div *ngFor="let post of rejectedPosts; index as i" class="card-container" [style.border]="getBorder(post.reviewStatus)">
                     <div class="card-body">
                         <div class="card-header">
-                            <span class="post-details">{{dashboardService.getPostIP(post)}} | {{post.pop.UUID}}</span>
+                            <span class="post-details">{{dashboardService.getPostIP(post)}} | {{post.UUID}}</span>
                             <div class="button-container">
                                 <!-- approve -->
                                 <button class="dashboard-button" (click)="handlePost(post, i, 2)">
@@ -23,7 +23,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-content">{{dashboardService.getPostSubmission(post)}}</div>
+                        <div class="card-content">{{dashboardService.getMostRecentSubmission(post)}}</div>
                         <div class="card-footer">
                             <button class="dashboard-button" (click)="editPost(post)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
@@ -40,10 +40,10 @@
         <div class="unmoderated">
             <h1 class="card-column-header">Unmoderated</h1>
             <div class="card-column">
-                <div *ngFor="let post of unmoderatedPosts; index as j" class="card-container">
+                <div *ngFor="let post of unmoderatedPosts; index as j" class="card-container" [style.border]="getBorder(post.reviewStatus)">
                     <div class="card-body">
                         <div class="card-header">
-                            <span class="post-details">{{dashboardService.getPostIP(post)}} | {{post.pop.UUID}}</span>
+                            <span class="post-details">{{dashboardService.getPostIP(post)}} | {{post.UUID}}</span>
                             <div class="button-container">
                                 <!-- reject -->
                                 <button class="dashboard-button" (click)="handlePost(post, j, 1)"> 
@@ -69,7 +69,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-content">{{dashboardService.getPostSubmission(post)}}</div>
+                        <div class="card-content">{{dashboardService.getMostRecentSubmission(post)}}</div>
                         <div class="card-footer">
                             <button class="dashboard-button" (click)="editPost(post)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
@@ -86,10 +86,10 @@
         <div class="approved">
             <h1 class="card-column-header">Approved</h1>
             <div class="card-column">
-                <div *ngFor="let post of approvedPosts; index as k" class="card-container">
+                <div *ngFor="let post of approvedPosts; index as k" class="card-container" [style.border]="getBorder(post.reviewStatus)">
                     <div class="card-body">
                         <div class="card-header">
-                            <span class="post-details">{{dashboardService.getPostIP(post)}} | {{post.pop.UUID}}</span>
+                            <span class="post-details">{{dashboardService.getPostIP(post)}} | {{post.UUID}}</span>
                             <div class="button-container">
                                 <!-- reject -->
                                 <button class="dashboard-button" (click)="handlePost(post, k, 1)"> 
@@ -101,13 +101,13 @@
                                     </svg>
                                 </button>
                                 <!-- approve -->
-                                <button class="dashboard-button" (click)="handlePost(post, k, 2)" *ngIf="post.status !== 2">
+                                <button class="dashboard-button" (click)="handlePost(post, k, 2)" *ngIf="post.reviewStatus !== 2">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                         <polyline points="4 11.5 10 17.5 21 6.5" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                     </svg>
                                 </button>
                                 <!-- super approve -->
-                                <button class="dashboard-button" (click)="handlePost(post, k, 3)" *ngIf="post.status !== 3">
+                                <button class="dashboard-button" (click)="handlePost(post, k, 3)" *ngIf="post.reviewStatus !== 3">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
                                         <polyline points="19 10 12 3 5 10" fill="none" stroke="#000" stroke-miterlimit="10"/>
                                         <line x1="12" y1="3" x2="12" y2="22" fill="none" stroke="#000" stroke-miterlimit="10"/>
@@ -115,7 +115,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-content">{{dashboardService.getPostSubmission(post)}}</div>
+                        <div class="card-content">{{dashboardService.getMostRecentSubmission(post)}}</div>
                         <div class="card-footer">
                             <button class="dashboard-button" (click)="editPost(post)">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24">
@@ -127,6 +127,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div>
+            <button class="floating-submit-button" (click)="submit()">Submit Reviewed Posts</button>
         </div>
     </div>
     <ng-template #gotNothing>
