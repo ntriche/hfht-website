@@ -129,10 +129,14 @@
             </div>
         </div>
         <div>
-            <button class="floating-submit-button" (click)="submit()">Submit Reviewed Posts</button>
+            <button class="floating-submit-button" [disabled]="isSubmissionDisabled" (click)="onClickSubmit()">Submit Reviewed Posts</button>
         </div>
     </div>
     <ng-template #gotNothing>
-        Nobody here but us chickens!
+        <div class="card-container">
+            <div class="card-body">
+                <div class="card-content">No re-unreviewed posts could be retrieved</div>
+            </div>
+        </div>
     </ng-template>
-</div> 
+</div>

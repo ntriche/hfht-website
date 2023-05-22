@@ -5,6 +5,17 @@ import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
 import { DashboardEditPopupComponent } from './popup/dashboard-edit-popup.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+export interface Submission {
+  userIP: string;
+  timestampAtSubmission: Date;
+  submissions: string[];
+  UUID: string;
+  reviewStatus: ReviewStatus;
+  timestampAtPost: Date;
+  postID: string;
+  quality: Quality;
+}
+
 enum ReviewStatus {
   NotReviewed = 0,
   Denied,
@@ -12,14 +23,14 @@ enum ReviewStatus {
   SuperApproved,
 }
 
-export interface Submission {
-	userIP: string;
-	timestampAtSubmission: Date;
-	submissions: string[];
-	UUID: string;
-	reviewStatus: ReviewStatus;
-	timestampAtPost: Date;
-	postID: string;
+export enum Quality {
+	None = 0,
+	Poor,
+	Common,
+	Uncommon,
+	Rare,
+	Epic,
+	Legendary,
 }
 
 @Component({
@@ -29,6 +40,7 @@ export interface Submission {
 })
 export class DashboardComponent implements OnInit {
   isLoading: boolean = false;
+  isSubmissionDisabled: boolean = false;
   gotSubmissions: boolean = false;
 
   unmoderatedPosts: Submission[] = [];
@@ -38,36 +50,55 @@ export class DashboardComponent implements OnInit {
   constructor(public dashboardService: DashboardService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   async ngOnInit(): Promise<void> {
+    await this.retrieveUnreviewedSubmissions();
+  }
+
+  async retrieveUnreviewedSubmissions(): Promise<void> {
     this.isLoading = true;
     try {
-      let res = await lastValueFrom(this.dashboardService.getStoredSubmissions());
-      let subs: Submission[] = JSON.parse(res) as Submission[];
+      const response: string = await lastValueFrom(this.dashboardService.getUnreviewedSubmissions());
+      let subs: Submission[] = JSON.parse(response) as Submission[];
       subs.forEach(sub => {
         this.unmoderatedPosts.push(sub);
       });
     } catch(err) {
-      throw err;
+      console.log('Failed to fetch unreviewed submissions from server - ', err);
     } finally {
       if (this.unmoderatedPosts.length > 0) {
         this.gotSubmissions = true;
+        this.isSubmissionDisabled = false;
+      } else {
+        this.gotSubmissions = false;
+        this.isSubmissionDisabled = true;
       }
       this.isLoading = false;
     }
   }
-
-  submit(): void {
+ 
+  async onClickSubmit(): Promise<void> {    
+    this.isSubmissionDisabled = true;
     if (this.rejectedPosts.length == 0 && this.approvedPosts.length == 0) {
-      this.openSnackBar('No reviewed submissions to submit!', 5000);
+      this.openSnackBar('No reviewed submissions to submit!');
+      this.isSubmissionDisabled = false;
       return;
     }
 
-    //const reviewedSubmissions: ReviewSubmission[] = this.approvedPosts;
-    let reviewedSubmissions = JSON.stringify(this.approvedPosts) + JSON.stringify(this.rejectedPosts);
-
-    this.dashboardService.sendReviewedSubmissions(reviewedSubmissions).subscribe(thing => console.log(thing));
-    
-    //let res = lastValueFrom(this.dashboardService.sendReviewedSubmissions(reviewedSubmissions));
-    //console.log(res);
+    this.isLoading = true;
+    const reviewedSubmissions = JSON.stringify(this.rejectedPosts.concat(this.approvedPosts));
+    try {
+      const response: string = await lastValueFrom(this.dashboardService.postSubmissions(reviewedSubmissions));
+      // If the server returns an error code (i.e. a 400 or 500 type), an error is automatically thrown and no manual error checking is required
+      this.openSnackBar('Success: ' + response);
+      // Clear rejected and approved posts and then fetch new unreviewed posts
+      this.rejectedPosts = [];
+      this.approvedPosts = [];
+      await this.retrieveUnreviewedSubmissions();
+    } catch(err) {
+      console.log('Failed to submit reviewed submissions to server - ', err);
+    } finally {
+      this.isSubmissionDisabled = false;
+      this.isLoading = false;
+    }
   }
 
   editPost(sub: Submission) {
@@ -84,8 +115,10 @@ export class DashboardComponent implements OnInit {
 
   handlePost(sub: Submission, index: number, newStatus: ReviewStatus) {
     if (newStatus === sub.reviewStatus) {
-      throw `Cannot change a post to new status - post already is that status! ${sub}`;
+      this.openSnackBar(`Cannot change a post to new status - post already is that status! ${sub}`);
+      return;
     }
+
     switch (sub.reviewStatus) {
       case ReviewStatus.NotReviewed:
         this.unmoderatedPosts.splice(index, 1);
@@ -99,13 +132,15 @@ export class DashboardComponent implements OnInit {
       case ReviewStatus.SuperApproved:
         this.approvedPosts.splice(index, 1);
         break;
-      default:            
-        throw `Post has a non-postStatus status! ${sub}`;
+      default:
+        this.openSnackBar(`Post has an invalid post status! ${sub}`);
+        return;
     }
 
     switch (newStatus) {
       case ReviewStatus.NotReviewed:
-        throw `Post cannot be pushed back into unmoderated array! ${sub}`;
+        this.openSnackBar(`Post cannot be pushed back into unmoderated array! ${sub}`);
+        return;
       case ReviewStatus.Denied:
         this.rejectedPosts.push(sub);
         break;
@@ -115,8 +150,9 @@ export class DashboardComponent implements OnInit {
       case ReviewStatus.SuperApproved:
         this.approvedPosts.unshift(sub);
         break;
-      default:            
-        throw `Post has an invalid newStatus! ${sub}`; 
+      default:
+        this.openSnackBar(`Post has an invalid newStatus! ${sub}`);
+        return;
     }
 
     sub.reviewStatus = newStatus;
@@ -138,8 +174,8 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  openSnackBar(message: string, duration: number): void {
-    this.snackBar.open(message, 'Okay', {
+  openSnackBar(message: string, response: string = 'Okay', duration: number = 5000): void {
+    this.snackBar.open(message, response, {
       duration: duration
     });
   }
