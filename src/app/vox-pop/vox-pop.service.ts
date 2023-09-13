@@ -4,8 +4,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface Post {
-  userIP: string,
-  submission: string,
+  submission: string
 }
 
 @Injectable({providedIn: 'root'})
@@ -19,10 +18,6 @@ export class VoxPopService {
       .pipe(
         catchError(this.errorHandler)
       )
-  }
-
-  public getUserIP(): Observable<string> {
-    return this.httpClient.get("https://api.ipify.org", {responseType: 'text'})
   }
 
   private errorHandler(error: HttpErrorResponse) {

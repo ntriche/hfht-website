@@ -25,17 +25,6 @@ export class VoxPopComponent implements OnInit {
       duration: duration
     });
   }
-
-  async fetchUserIP(): Promise<string> {
-    let userIP = ''
-    try {
-      // lastValueFrom converts an observable into a promise
-      userIP = await lastValueFrom(this.voxPopService.getUserIP());
-    } catch {
-      console.error("Failed to fetch user IP");
-    }
-    return userIP;
-  }
   
   prevalidate(submissionText: string): boolean {
     if (submissionText.length == 0) {
@@ -59,7 +48,6 @@ export class VoxPopComponent implements OnInit {
     }
 
     const post: Post = {
-      userIP: await this.fetchUserIP(),
       submission: submissionText,
     }
 
