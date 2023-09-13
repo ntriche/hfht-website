@@ -23,7 +23,7 @@ $submission-box-height: 75px;
 }
 
 .submission-divider {
-    height: $submission-box-height / 2;
+    height: calc($submission-box-height / 2);
     width: 400px;
 }
 
