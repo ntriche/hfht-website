@@ -17,32 +17,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private loader!: GLTFLoader;
   private model!: GLTF;
 
-  // Copied from here https://github.com/srivastavaanurag79/angular-three/blob/main/src/app/cube/cube.component.ts
-  // Without wrapping the animation/rendering in the render() function, only a single frame would
-  // be animated, so this is required for now.
-  private startRenderingLoop() {
-    let component: HomeComponent = this;
-    (function render() {
-      requestAnimationFrame(render);
-
-      if (component.model) {
-        component.model.scene.rotation.x += 0.01;
-        component.model.scene.rotation.y += 0.01;
-      }
-      
-      component.renderer.render(component.scene, component.camera);
-    }());
-  }
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.scene = new Scene();
     this.scene.background = new Color(0, 0, 0);
 
-    const light = new AmbientLight(0x404040, 3) // soft ambient white light
+    const light = new AmbientLight(0x404040, 10) // soft ambient white light
     this.scene.add(light);
 
     this.camera = new PerspectiveCamera(75, 1, 0.1, 2000);
@@ -64,6 +45,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
     )
 
     this.startRenderingLoop();
+  }
+
+  // Copied from here https://github.com/srivastavaanurag79/angular-three/blob/main/src/app/cube/cube.component.ts
+  // Without wrapping the animation/rendering in the render() function, only a single frame would
+  // be animated, so this is required for now.
+  private startRenderingLoop() {
+    let component: HomeComponent = this;
+    (function render() {
+      requestAnimationFrame(render);
+
+      if (component.model) {
+        component.model.scene.rotation.x += 0.01;
+        component.model.scene.rotation.y += 0.01;
+      }
+      
+      component.renderer.render(component.scene, component.camera);
+    }());
   }
 
   onModelLoad(model: GLTF): void {
