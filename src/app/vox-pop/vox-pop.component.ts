@@ -16,7 +16,10 @@ export class VoxPopComponent implements OnInit {
     submissionArea: new FormControl()
   });
 
-  constructor(private voxPopService: VoxPopService, private snackBar: MatSnackBar) {}
+  constructor(
+    private voxPopService: VoxPopService, 
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {}
 
