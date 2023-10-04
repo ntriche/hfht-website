@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BrowserAnimationsModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatDialogModule,

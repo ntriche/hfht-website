@@ -4,18 +4,33 @@ import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  template: `
+    <div style = "display: flex; flex-direction: column; align-items: center">
+      <h1 style = "text-align: center">hfht</h1>
+      <div style = "position: relative; display: flex; align-items: center; justify-content: center">
+        <mat-progress-spinner
+          *ngIf = "isModelLoading"
+          color = "accent"
+          mode = determinate
+          [value] = progress
+          style = "position: absolute; width: 100px; height: 100px">
+        </mat-progress-spinner>
+        <canvas #turkeyCanvas id = "turkeyCanvas"></canvas>
+      </div>
+    </div>
+  `
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('turkeyCanvas', {static: false, read: ElementRef})
   private canvasRef!: ElementRef;
-
   private scene!: Scene;
   private camera!: PerspectiveCamera;
   private renderer!: WebGLRenderer;
   private loader!: GLTFLoader;
   private model!: GLTF;
+
+  public progress: number = 0;
+  public isModelLoading: boolean = true;
 
   ngOnInit(): void {}
 
@@ -33,12 +48,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.renderer.outputColorSpace = SRGBColorSpace;
     this.renderer.setSize(500, 500);
 
+    // loading could be moved to ngOnInit() and the loaded model could be set here in ngAfterViewInit() 
     this.loader = new GLTFLoader();
-    this.loader.load('assets/models/funky_model.glb', 
-      (gltf) => this.onModelLoad(gltf),
-      function(xhr) {
-        console.log( Math.trunc( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-      }, 
+    this.loader.load('assets/models/funky_model.glb',
+      (gltf)  => this.onModelLoad(gltf),
+      (xhr)   => this.onModelProgress(xhr), 
       function(error) {
         console.error(error)
       }
@@ -67,5 +81,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   onModelLoad(model: GLTF): void {
     this.model = model;
     this.scene.add(model.scene);
+    this.isModelLoading = false;
+  }
+
+  onModelProgress(xhr: ProgressEvent<EventTarget>): void {
+    this.progress = Math.trunc( xhr.loaded / xhr.total * 100 );
   }
 }
