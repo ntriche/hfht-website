@@ -1,15 +1,31 @@
+import { animate, state, style, transition, trigger, AnimationEvent } from '@angular/animations';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AmbientLight, Color, PerspectiveCamera, SRGBColorSpace, Scene, WebGLRenderer } from 'three';
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 @Component({
   selector: 'app-home',
+  animations: [
+    trigger('spinnerFadeout', [
+      state('loading', style({
+        opacity: 1,
+      })),
+      state('fadeout', style({
+        opacity: 0,
+      })),
+      transition('loading => fadeout', [
+        animate('750ms')
+      ])
+    ])
+  ],
   template: `
     <div style = "display: flex; flex-direction: column; align-items: center">
       <h1 style = "text-align: center">hfht</h1>
       <div style = "position: relative; display: flex; align-items: center; justify-content: center">
         <mat-progress-spinner
-          *ngIf = "isModelLoading"
+          *ngIf = "isSpinnerEnabled"
+          [@spinnerFadeout] = "spinnerAnimationState"
+          (@spinnerFadeout.done) = "onSpinnerAnimation($event)"
           color = "accent"
           mode = determinate
           [value] = progress
@@ -30,7 +46,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private model!: GLTF;
 
   public progress: number = 0;
-  public isModelLoading: boolean = true;
+  public isSpinnerEnabled: boolean = true;
+  public spinnerAnimationState: "loading" | "fadeout" = "loading";
 
   ngOnInit(): void {}
 
@@ -42,7 +59,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.scene.add(light);
 
     this.camera = new PerspectiveCamera(75, 1, 0.1, 2000);
-    this.camera.position.z = 5;
+    this.camera.position.z = 3.2;
 
     this.renderer = new WebGLRenderer({canvas: this.canvasRef.nativeElement});
     this.renderer.outputColorSpace = SRGBColorSpace;
@@ -81,10 +98,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   onModelLoad(model: GLTF): void {
     this.model = model;
     this.scene.add(model.scene);
-    this.isModelLoading = false;
+
+    this.spinnerAnimationState = "fadeout";
   }
 
   onModelProgress(xhr: ProgressEvent<EventTarget>): void {
     this.progress = Math.trunc( xhr.loaded / xhr.total * 100 );
+  }
+
+  onSpinnerAnimation(event: AnimationEvent): void {
+    this.isSpinnerEnabled = (event.phaseName == 'done');
   }
 }
