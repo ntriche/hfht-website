@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { BoxGeometry, Color, Mesh, MeshBasicMaterial, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
+import { AmbientLight, Color, PerspectiveCamera, SRGBColorSpace, Scene, WebGLRenderer } from 'three';
+import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private scene!: Scene;
   private camera!: PerspectiveCamera;
   private renderer!: WebGLRenderer;
-  private cube!: Mesh;
+  private loader!: GLTFLoader;
+  private model!: GLTF;
 
   // Copied from here https://github.com/srivastavaanurag79/angular-three/blob/main/src/app/cube/cube.component.ts
   // Without wrapping the animation/rendering in the render() function, only a single frame would
@@ -23,8 +25,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     (function render() {
       requestAnimationFrame(render);
 
-      component.cube.rotation.x += 0.01;
-      component.cube.rotation.y += 0.01;
+      if (component.model) {
+        component.model.scene.rotation.x += 0.01;
+        component.model.scene.rotation.y += 0.01;
+      }
       
       component.renderer.render(component.scene, component.camera);
     }());
@@ -38,17 +42,32 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.scene = new Scene();
     this.scene.background = new Color(0, 0, 0);
 
+    const light = new AmbientLight(0x404040, 3) // soft ambient white light
+    this.scene.add(light);
+
     this.camera = new PerspectiveCamera(75, 1, 0.1, 2000);
     this.camera.position.z = 5;
 
     this.renderer = new WebGLRenderer({canvas: this.canvasRef.nativeElement});
+    this.renderer.outputColorSpace = SRGBColorSpace;
     this.renderer.setSize(500, 500);
 
-    const geometry = new BoxGeometry(1, 1, 1);
-    const material = new MeshBasicMaterial({color: new Color(255, 0, 0)});
-    this.cube = new Mesh(geometry, material);
-    this.scene.add(this.cube);
+    this.loader = new GLTFLoader();
+    this.loader.load('assets/models/funky_model.glb', 
+      (gltf) => this.onModelLoad(gltf),
+      function(xhr) {
+        console.log( Math.trunc( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+      }, 
+      function(error) {
+        console.error(error)
+      }
+    )
 
     this.startRenderingLoop();
+  }
+
+  onModelLoad(model: GLTF): void {
+    this.model = model;
+    this.scene.add(model.scene);
   }
 }
